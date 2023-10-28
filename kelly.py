@@ -15,17 +15,20 @@ n_individuals = 100
 
 t = np.random.normal(0.01,0.015,n_time) # market returns at time t
 
+
+simple_loss_gain = t + 1 
+cum_loss_gain = np.cumprod(simple_loss_gain,axis = 1)
+
 kellyfractions = np.linspace(0.05,70,n_individuals) # portfolio exposition
 temp_t = np.ones((t.size,kellyfractions.size)) 
 
 loss_gain = t*(temp_t*kellyfractions).T 
 
+
 # exp_loss_gain = np.exp(loss_gain)
 # cum_loss_gain = np.cumprod(exp_loss_gain,axis = 1) # used for log returns. 
 
-simple_loss_gain = loss_gain + 1 
-simple_loss_gain[loss_gain < -1] = 0
-cum_loss_gain = np.cumprod(simple_loss_gain,axis = 1)
+
 
 # plt.hist(t, bins=10)
 # plt.show()
